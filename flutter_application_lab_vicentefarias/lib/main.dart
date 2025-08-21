@@ -58,15 +58,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
+
       _counter++;
     });
   }
 
+  void _decrementCounter() {
+    setState(() {
+      
+      _counter--;
+    });
+  }
+    void _restartCounter() {
+    setState(() {
+
+      _counter = 0;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -112,10 +120,34 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: _decrementCounter,
+            backgroundColor: null,
+            tooltip: 'Decrement',
+            child: const Icon(Icons.remove),
+          ),
+          const SizedBox(width: 10), // Espacio entre los botones
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 10), // Espacio entre los botones
+          FloatingActionButton(
+            onPressed: _restartCounter,
+            tooltip: 'Restart',
+            child: const Icon(Icons.refresh),
+          ),
+          const SizedBox(width: 10), // Espacio entre los botones
+          FloatingActionButton(
+            onPressed: null,
+            tooltip: 'ChangeColor',
+            child: const Icon(Icons.brush),
+          ),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
