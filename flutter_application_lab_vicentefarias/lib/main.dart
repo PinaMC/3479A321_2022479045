@@ -60,8 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Color _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
   Color _restartColor = const Color.fromRGBO(33, 150, 243, 1);
   //Color _changeColor = const Color.fromRGBO(255, 152, 0, 1);
-  
- // ...existing code...
+  Color _backgroundColor = Colors.white;
+
+  int colorIndex = 0;
+  List<Color> colors = [
+    Colors.purple,
+    Colors.orange,
+    Colors.brown,
+    Colors.white,
+  ];
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -105,6 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
       //_changeColor = const Color.fromRGBO(255, 152, 0, 1);
     });
   }
+  void changeColor(){
+    setState(() {
+      _backgroundColor = colors[colorIndex];
+      colorIndex = (colorIndex + 1) % colors.length;
+    });
+  }
 
   
   @override
@@ -116,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: _backgroundColor, //para que cambie el color de fondo
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -165,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
-            onPressed: null,
+            onPressed: changeColor,
             tooltip: 'ChangeColor',
             child: const Icon(Icons.brush),
           ),
