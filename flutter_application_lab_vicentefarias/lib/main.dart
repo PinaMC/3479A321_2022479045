@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '2022479045'),
     );
   }
 }
@@ -55,26 +55,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  
+  Color _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
+  Color _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
+  Color _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+  //Color _changeColor = const Color.fromRGBO(255, 152, 0, 1);
+  
+ // ...existing code...
   void _incrementCounter() {
     setState(() {
-
       _counter++;
+      _incrementColor = Colors.green;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      setState(() {
+        _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
+      });
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      
       _counter--;
+      _decrementColor = Colors.red;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      setState(() {
+        _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
+      });
     });
   }
-    void _restartCounter() {
-    setState(() {
 
+  void _restartCounter() {
+    setState(() {
       _counter = 0;
+      _restartColor = Colors.blue;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      setState(() {
+        _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+      });
     });
   }
+  void resetColors() {
+    setState(() {
+      _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
+      _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
+      _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+      //_changeColor = const Color.fromRGBO(255, 152, 0, 1);
+    });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -100,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Column is also a layout widget. It takes a list of children and
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            const Text('“Pixel Art sobre una grilla personalizable"'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -113,19 +145,21 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           FloatingActionButton(
             onPressed: _decrementCounter,
-            backgroundColor: null,
+            backgroundColor: _decrementColor,
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _incrementCounter,
+            backgroundColor: _incrementColor,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _restartCounter,
+            backgroundColor: _restartColor,
             tooltip: 'Restart',
             child: const Icon(Icons.refresh),
           ),
