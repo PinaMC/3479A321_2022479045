@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -55,12 +57,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  
-  Color _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
-  Color _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
-  Color _restartColor = const Color.fromRGBO(33, 150, 243, 1);
-  //Color _changeColor = const Color.fromRGBO(255, 152, 0, 1);
-  Color _backgroundColor = Colors.white;
+  Color _color = Colors.white;
 
   int colorIndex = 0;
   List<Color> colors = [
@@ -69,14 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.brown,
     Colors.white,
   ];
+  
   void _incrementCounter() {
     setState(() {
       _counter++;
-      _incrementColor = Colors.green;
+      _color = Colors.green;
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
+        _color  = const Color.fromRGBO(76, 175, 80, 1);
       });
     });
   }
@@ -84,11 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _decrementCounter() {
     setState(() {
       _counter--;
-      _decrementColor = Colors.red;
+      _color  = Colors.red;
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
+        _color  = const Color.fromRGBO(244, 67, 54, 1);
       });
     });
   }
@@ -96,32 +94,66 @@ class _MyHomePageState extends State<MyHomePage> {
   void _restartCounter() {
     setState(() {
       _counter = 0;
-      _restartColor = Colors.blue;
+      _color  = Colors.blue;
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+        _color  = const Color.fromRGBO(33, 150, 243, 1);
       });
     });
   }
   void resetColors() {
     setState(() {
-      _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
-      _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
-      _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+      _color  = const Color.fromRGBO(244, 67, 54, 1);
+      _color  = const Color.fromRGBO(76, 175, 80, 1);
+      _color  = const Color.fromRGBO(33, 150, 243, 1);
       //_changeColor = const Color.fromRGBO(255, 152, 0, 1);
     });
   }
   void changeColor(){
     setState(() {
-      _backgroundColor = colors[colorIndex];
+      _color = colors[colorIndex];
       colorIndex = (colorIndex + 1) % colors.length;
     });
   }
 
+  Widget buildButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        FloatingActionButton(
+          onPressed: _decrementCounter,
+          tooltip: 'Decrement',
+          child: const Icon(Icons.remove),
+        ),
+        const SizedBox(width: 10), // Espacio entre los botones
+        FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
+        const SizedBox(width: 10), // Espacio entre los botones
+        FloatingActionButton(
+          onPressed: _restartCounter,
+          tooltip: 'Restart',
+          child: const Icon(Icons.refresh),
+        ),
+        const SizedBox(width: 10), // Espacio entre los botones
+        FloatingActionButton(
+          onPressed: changeColor,
+          backgroundColor: _color,
+          tooltip: 'ChangeColor',
+          child: const Icon(Icons.brush),
+        ),
+      ],
+    );
+  }
+  
   
   @override
   Widget build(BuildContext context) {
+    var logger = Logger();
+    logger.d("Logger is working!");
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -129,7 +161,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: _backgroundColor, //para que cambie el color de fondo
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -143,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
+
           // Column is also a layout widget. It takes a list of children and
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -154,37 +186,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            onPressed: _decrementCounter,
-            backgroundColor: _decrementColor,
-            tooltip: 'Decrement',
-            child: const Icon(Icons.remove),
-          ),
-          const SizedBox(width: 10), // Espacio entre los botones
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            backgroundColor: _incrementColor,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(width: 10), // Espacio entre los botones
-          FloatingActionButton(
-            onPressed: _restartCounter,
-            backgroundColor: _restartColor,
-            tooltip: 'Restart',
-            child: const Icon(Icons.refresh),
-          ),
-          const SizedBox(width: 10), // Espacio entre los botones
-          FloatingActionButton(
-            onPressed: changeColor,
-            tooltip: 'ChangeColor',
-            child: const Icon(Icons.brush),
-          ),
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+      floatingActionButton: buildButtons(),
+      
+      
     );
   }
 }
