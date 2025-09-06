@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,8 +45,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   
-
-
+var logger = Logger();
+  //lista de colores
   int colorIndex = 0;
   List<Color> colors = [
     Colors.purple,
@@ -54,19 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.brown,
     Colors.white,
   ];
-
   //variable para cambiar color
   Color changeColorButtonColor = Colors.purple;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
-      
-    });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {
-        
-      });
+      logger.d("Logger is working!"); //mensaje de depuracion
     });
   }
 
@@ -75,11 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter--;
       
     });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {
-        
-      });
-    });
   }
 
   void _restartCounter() {
@@ -87,11 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter = 0;
       
     });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {
-        
-      });
-    });
+
   }
   void _changeColors() {
     setState(() {
