@@ -57,11 +57,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   
-  Color _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
-  Color _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
-  Color _restartColor = const Color.fromRGBO(33, 150, 243, 1);
-  //Color _changeColor = const Color.fromRGBO(255, 152, 0, 1);
-  Color _backgroundColor = Colors.white;
+
 
   int colorIndex = 0;
   List<Color> colors = [
@@ -70,14 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.brown,
     Colors.white,
   ];
+
+  //variable para cambiar color
+  Color changeColorButtonColor = Colors.purple;
+
   void _incrementCounter() {
     setState(() {
       _counter++;
-      _incrementColor = Colors.green;
+      
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
+        
       });
     });
   }
@@ -85,11 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _decrementCounter() {
     setState(() {
       _counter--;
-      _decrementColor = Colors.red;
+      
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
+        
       });
     });
   }
@@ -97,28 +97,23 @@ class _MyHomePageState extends State<MyHomePage> {
   void _restartCounter() {
     setState(() {
       _counter = 0;
-      _restartColor = Colors.blue;
+      
     });
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
-        _restartColor = const Color.fromRGBO(33, 150, 243, 1);
+        
       });
     });
   }
-  void resetColors() {
+  void _changeColors() {
     setState(() {
-      _decrementColor = const Color.fromRGBO(244, 67, 54, 1);
-      _incrementColor = const Color.fromRGBO(76, 175, 80, 1);
-      _restartColor = const Color.fromRGBO(33, 150, 243, 1);
-      //_changeColor = const Color.fromRGBO(255, 152, 0, 1);
+    colorIndex = (colorIndex + 1) % colors.length; //cambiar colores en la lista
+    changeColorButtonColor = colors[colorIndex];
+      
     });
   }
-  void changeColor(){
-    setState(() {
-      _backgroundColor = colors[colorIndex];
-      colorIndex = (colorIndex + 1) % colors.length;
-    });
-  }
+
+  
 
   
   @override
@@ -130,7 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: _backgroundColor, //para que cambie el color de fondo
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -160,27 +154,25 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           FloatingActionButton(
             onPressed: _decrementCounter,
-            backgroundColor: _decrementColor,
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _incrementCounter,
-            backgroundColor: _incrementColor,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _restartCounter,
-            backgroundColor: _restartColor,
             tooltip: 'Restart',
             child: const Icon(Icons.refresh),
           ),
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
-            onPressed: changeColor,
+            onPressed: _changeColors, 
+            backgroundColor: changeColorButtonColor, 
             tooltip: 'ChangeColor',
             child: const Icon(Icons.brush),
           ),
