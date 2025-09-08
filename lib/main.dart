@@ -1,5 +1,8 @@
+//import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    var logger = Logger();
+    logger.d("Logger is working! in build method of MyApp"); // se supone que sale al inicio
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -45,7 +50,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   
-var logger = Logger();
   //lista de colores
   int colorIndex = 0;
   List<Color> colors = [
@@ -60,8 +64,9 @@ var logger = Logger();
   void _incrementCounter() {
     setState(() {
       _counter++;
-      logger.d("Logger is working!"); //mensaje de depuracion
+    
     });
+
   }
 
   void _decrementCounter() {
@@ -70,41 +75,32 @@ var logger = Logger();
       
     });
   }
-
   void _restartCounter() {
     setState(() {
       _counter = 0;
       
     });
-
   }
   void _changeColors() {
     setState(() {
     colorIndex = (colorIndex + 1) % colors.length; //cambiar colores en la lista
     changeColorButtonColor = colors[colorIndex];
-      
+    
     });
   }
-
-  
-
   
   @override
   Widget build(BuildContext context) {
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    var logger = Logger();
+    logger.d("Logger is working! in build method of _MyHomePageState");
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
+
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+
         title: Text(widget.title),
       ),
       body: Center(
@@ -112,6 +108,7 @@ var logger = Logger();
         // in the middle of the parent.
         child: Column(
           // Column is also a layout widget. It takes a list of children and
+          //how
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('“Pixel Art sobre una grilla personalizable"'),
@@ -119,6 +116,18 @@ var logger = Logger();
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            //se muestran imagenes en fila y se puede scrollear
+            /*
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Image.asset('Assets/Pixel-Art-Hot-Pepper-2-1.webp', width: 200, height: 200),
+                  Image.asset('Assets/Pixel-Art-Pizza-2.webp', width: 200, height: 200),
+                  Image.asset('Assets/Pixel-Art-Watermelon-3.webp', width: 200, height: 200),
+                ],
+              ),
+            ),*/
           ],
         ),
       ),
