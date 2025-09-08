@@ -17,12 +17,18 @@ class MyApp extends StatelessWidget {
 
     var logger = Logger();
     logger.d("Logger is working! in build method of MyApp"); // se supone que sale al inicio
+
     return MaterialApp(
+
       title: 'Flutter Demo',
       theme: ThemeData(
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: GoogleFonts.latoTextTheme( //fuente de texto lato de google fonts
+          Theme.of(context).textTheme,
+        ),
+        useMaterial3: true, //es como un estilo visual nuevo de google
       ),
       home: const MyHomePage(title: '2022479045'),
     );
@@ -64,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
-    
     });
 
   }
@@ -72,20 +77,17 @@ class _MyHomePageState extends State<MyHomePage> {
   void _decrementCounter() {
     setState(() {
       _counter--;
-      
     });
   }
   void _restartCounter() {
     setState(() {
-      _counter = 0;
-      
+      _counter = 0;  
     });
   }
   void _changeColors() {
     setState(() {
     colorIndex = (colorIndex + 1) % colors.length; //cambiar colores en la lista
     changeColorButtonColor = colors[colorIndex];
-    
     });
   }
   
@@ -117,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             //se muestran imagenes en fila y se puede scrollear
-            /*
+            
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -127,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Image.asset('Assets/Pixel-Art-Watermelon-3.webp', width: 200, height: 200),
                 ],
               ),
-            ),*/
+            ),
           ],
         ),
       ),
@@ -139,18 +141,21 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
+
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _incrementCounter,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
+
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _restartCounter,
             tooltip: 'Restart',
             child: const Icon(Icons.refresh),
           ),
+          
           const SizedBox(width: 10), // Espacio entre los botones
           FloatingActionButton(
             onPressed: _changeColors, 
