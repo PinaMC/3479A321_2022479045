@@ -48,9 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   
   @override
   Widget build(BuildContext context) {
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
     var logger = Logger();
     logger.d("Logger is working! in build method of _MyHomePageState");
     return Scaffold(
@@ -61,11 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          //how
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('“Pixel Art sobre una grilla personalizable"'),
@@ -123,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.brush),
           ),
         ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), 
     );
   }
 }
