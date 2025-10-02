@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'pages/my_home_page.dart';
+import 'package:flutter_application_lab_vicentefarias/pages/my_home_page.dart';
 
 
 void main() {
