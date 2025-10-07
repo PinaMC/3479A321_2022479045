@@ -1,10 +1,13 @@
 //import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_application_lab_vicentefarias/pages/pixel_art_screen.dart';
 import 'package:logger/logger.dart';
 import 'about.dart';
 import 'list_art.dart';
+import '../providers/configuration_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'list_creation.dart';
+import 'pixel_art_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -122,6 +125,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Configuración de Datos'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ConfigurationData()),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -168,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
                 // botones crear y compartir
                 Row(
@@ -189,7 +203,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         Logger().d("Botón Compartir presionado");
                       },
                       icon: const Icon(Icons.share),
-                      label: const Text('Compartir'),
+                      label: const Text('Share'),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PixelArtScreen(title: 'Editor Pixel Art'),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.edit),
+                      label: const Text('state'),
                     ),
                   ],
                 ),
