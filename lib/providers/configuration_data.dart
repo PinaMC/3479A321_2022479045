@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
 
 //pantalla para configurar datos
-class ConfigurationData extends StatefulWidget {
-  const ConfigurationData({super.key});
+class ConfigurationData extends ChangeNotifier {
+  int _size = 12; //Se cambia el valor con setSize
+  //colores
+  Color _selectedColor = Colors.red; //color seleccionado por defecto
 
-  @override
-  State<ConfigurationData> createState() => _ConfigurationDataState();
-}
-
-class _ConfigurationDataState extends State<ConfigurationData> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuración de Datos'),
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => Navigator.pop(context)),
-      ),
-      body: const Center(
-        child: Text('Elige el tamaño del Pixel Art'), //eleige entre 16, 18, 20,etc.
-      ),
-    );
-  }
-}
-class AppData extends ChangeNotifier{
-  int _size = 8; //final porque no se va a cambiar?? si cambia con setSize
   int get size => _size;
+  Color get selectedColor => _selectedColor;
 
-  void setSize(int newSize){
+  void setSize(int newSize){  //funcion para cambiar tamaño
     _size = newSize;
-    notifyListeners(); //notica a los widget que hubo un cambio en este provider
+    notifyListeners(); 
+  }  
+  void setColor(Color newColor){  //funcion para cambiar color
+    _selectedColor = newColor;
+    notifyListeners(); 
   }
+  
 }
+
+
+/*notifyListners: notica a los widget que hubo un cambio en este provider
+//ChangeNotifier: Guarda datos y avisa si algo cambia.
+//Provider: Hace que esos datos estén disponibles en toda la app.
+*/
+
+

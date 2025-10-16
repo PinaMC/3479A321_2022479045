@@ -10,7 +10,7 @@ import 'package:flutter_application_lab_vicentefarias/pages/my_home_page.dart';
 void main() {
   runApp(const MyApp());
   ChangeNotifierProvider(
-    create: (context) => AppData(),
+    create: (context) => ConfigurationData(),
     child: const MyApp(),
   );
 }
@@ -21,20 +21,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logger = Logger();
-    logger.d("*MAIN* Logger is working!"); // se supone que sale al inicio
-    
-    return ChangeNotifierProvider<AppData>(
-  create: (context) => AppData(),
-  child: MaterialApp(
-    title: '2022479045',
-    theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-      useMaterial3: true,
-    ),
-    home: const MyHomePage(title: '2022479045'),
-  ),
-);
+    logger.d("Logger is working!"); // se supone que sale al inicio
 
+    return MaterialApp(
+      title: '2022479045',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme,),
+        useMaterial3: true, //es como un estilo visual nuevo de google
+      ),
+      home: const MyHomePage(title: '2022479045'),
+    );  
   }
 }

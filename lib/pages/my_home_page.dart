@@ -1,10 +1,11 @@
 //import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_lab_vicentefarias/pages/configuracion_screen.dart';
 //import 'package:flutter_application_lab_vicentefarias/pages/pixel_art_screen.dart';
 import 'package:logger/logger.dart';
 import 'about.dart';
 import 'list_art.dart';
-import '../providers/configuration_data.dart';
+//import '../providers/configuration_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'list_creation.dart';
 import 'pixel_art_screen.dart';
@@ -132,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ConfigurationData()),
+                  MaterialPageRoute(builder: (context) => const ConfigurationScreen()),
                 );
               },
             ),
