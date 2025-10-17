@@ -11,6 +11,17 @@ class ConfigurationScreen extends StatefulWidget { //stateful porque va a cambia
   
 }
 
+//funcion para el color
+String _getColorName(Color color) {
+  if (color == Colors.black) return 'Negro';
+  if (color == Colors.purple) return 'Morado';
+  if (color == Colors.red) return 'Rojo';
+  if (color == Colors.blue) return 'Azul';
+  if (color == Colors.green) return 'Verde';
+  if (color == Colors.yellow) return 'Amarillo';
+  return 'Color';
+}
+
 class _ConfigurationScreenState extends State<ConfigurationScreen> { 
   
   //signo de pregunta porque puede ser nulo al inicio
@@ -27,39 +38,59 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Configuración"),
+        title: const Text("Configuración Pixel Art"),
       ),
       body: Padding(
         padding:  const EdgeInsets.all(20.0),
         child:      
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Configuración de los datos predeterminados \n del proyecto:',
+              'Configuración de los datos predeterminados \n del Pixel Art:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+
             const SizedBox(height: 30),
+            const Text(
+              'Seleccione el tamaño de los pixeles:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             //DropdownButton para seleccion de tamaño del de pixel art
             DropdownButtonFormField<int>(
               decoration: const InputDecoration(
-                labelText: 'Tamaño de letra',
+                labelText: 'Tamaño de los Pixeles',
                 border: OutlineInputBorder(),
               ),
+
               items: _size.map((int value) {
                 return DropdownMenuItem<int>(
                   value: value,
                   child: Text(value.toString()), //convierte el int a string
                 );
               }).toList(),
-              onChanged: (newValue) { // Lógica del cambio de tamaño de letra
-                if (newValue != null) {
-                  Provider.of<ConfigurationData>(context, listen: false).setSize(newValue);
-                }
-                
-              },
+                onChanged: (newValue) {
+                  if (newValue != null) {
+                    context.read<ConfigurationData>().setSize(newValue); 
+                  }
+                },
             ),
             const SizedBox(height: 20),
+            const Text(
+              'Seleccione el color:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
             //dropdown para seleccionar color
             DropdownButtonFormField<Color>( 
               decoration: const InputDecoration(
@@ -69,20 +100,27 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               items: _colores.map((Color color) { //el .map sirve para transformar cada elemento de la lista en otra cosa
                 return DropdownMenuItem<Color>(
                   value: color,
-                  child: Container(
-                    width: 100,
-                    height: 20,
-                    color: color,
-                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 24,
+                        height: 24,
+                        color: color,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(_getColorName(color)), //muestra el nombre del color
+                    ],
+                  )
                 );
               }).toList(),  //to list sirve para convertir el iterable en una lista
               onChanged: (newColor) {//Lógica del cambio de color
 
-                if(selectedColor != null){
-                  Provider.of<ConfigurationData>(context, listen: false).setColor(newColor!);
-
+                if(newColor != null){
+                  setState(() {
+                    selectedColor = newColor;
+                  });
+                  context.read<ConfigurationData>().setColor(newColor);
                 }
-
               },
             ),
           ],

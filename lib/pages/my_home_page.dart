@@ -18,7 +18,6 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -140,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      // en este body va el contenido de la pantalla principal
       body: Center(
         child: Card(
           elevation: 8,
