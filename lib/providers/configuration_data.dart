@@ -1,5 +1,4 @@
 // ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import '../services/services.dart';
@@ -14,8 +13,11 @@ class ConfigurationData extends ChangeNotifier {
   int _size = 16; //Se cambia el valor con setSize
   Color _selectedColor = Colors.red; //color seleccionado por defecto
   
-
   bool _isInitialized = false;
+  bool _showNumbers = true; // Nueva variable
+
+  bool get showNumbers => _showNumbers;
+
 
   ConfigurationData(this._prefsService) {
     _loadpreferences();
@@ -25,26 +27,35 @@ class ConfigurationData extends ChangeNotifier {
   Color get selectedColor => _selectedColor;
   bool get isInitialized => _isInitialized;
 
-  Future<void> _loadpreferences() async { //async sirve para esperar a que se carguen los datos
-    _size = await SharedService.loadGridSize();   //await sirve para esperar a que se carguen los datos
-    _selectedColor = await SharedService.loadSelectedColor();
+  Future<void> _loadpreferences() async {
+    _size = await _prefsService.loadGridSize();        // Era: SharedService.loadGridSize()
+    _selectedColor = await _prefsService.loadSelectedColor();  // Era: SharedService.loadSelectedColor()
+    _showNumbers = await _prefsService.loadShowNumbers(); // Cargar preferencia de mostrar números
+    logger.d("Preferences loaded: size=$_size, color=$_selectedColor, showNumbers=$_showNumbers");
     _isInitialized = true;
-    notifyListeners(); // Notificar que los datos han sido cargados
+    notifyListeners();
   }
 
-  void setSize(int newSize){  //funcion para cambiar tamaño
-    logger.d("Cambiando tamaño a $_size a $newSize"); //se muestra ek cambio en debug
-    SharedService.saveGridSize(newSize); //guardar tamaño en preferencias
+  Future<void> setSize(int newSize) async {  // Agrega: Future<void> y async
+    logger.d("Cambiando tamaño a $_size a $newSize");
     _size = newSize;
-    notifyListeners(); 
-  }  
+    await _prefsService.saveGridSize(newSize);  // Cambia: SharedService.saveGridSize por _prefsService y agrega await
+    notifyListeners();
+  }
 
-  void setColor(Color newColor) async{  //funcion para cambiar color
-  logger.d("Cambiando color de $_selectedColor a $newColor"); //se muestra ek cambio en debug
+  Future<void> setColor(Color newColor) async {
+    logger.d("Cambiando color de $_selectedColor a $newColor");
     _selectedColor = newColor;
-    await SharedService.saveSelectedColor(newColor); //guardar color en preferencias
-    notifyListeners(); 
-  } 
+    await _prefsService.saveSelectedColor(newColor);  // Cambia: SharedService por _prefsService
+    notifyListeners();
+  }
+  
+  // Función para actualizar showNumbers
+  Future<void> setShowNumbers(bool show) async {
+  _showNumbers = show;
+  await _prefsService.saveShowNumbers(show);
+  notifyListeners();
+}
 }
 /*notifyListners: notica a los widget que hubo un cambio en este provider
 //ChangeNotifier: Guarda datos y avisa si algo cambia.

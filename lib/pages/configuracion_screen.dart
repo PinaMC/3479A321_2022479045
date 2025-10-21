@@ -76,9 +76,9 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                   child: Text(value.toString()), //convierte el int a string
                 );
               }).toList(),
-                onChanged: (newValue) {
+                onChanged: (newValue) async{
                   if (newValue != null) {
-                    context.read<ConfigurationData>().setSize(newValue); 
+                    await context.read<ConfigurationData>().setSize(newValue); 
                   }
                 },
             ),
@@ -121,6 +121,15 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                   });
                   context.read<ConfigurationData>().setColor(newColor);
                 }
+              },
+            ),
+            const SizedBox(height: 20),
+            SwitchListTile(
+              title: const Text('Mostrar números en celdas'),
+              subtitle: const Text('Mostrar/ocultar índices en el grid'),
+              value: context.watch<ConfigurationData>().showNumbers,
+              onChanged: (bool value) {
+                context.read<ConfigurationData>().setShowNumbers(value);
               },
             ),
           ],

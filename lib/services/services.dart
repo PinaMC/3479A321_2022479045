@@ -11,28 +11,28 @@ class SharedService {
   static const String _sizeKey = 'pixel_grid_size'; //clave para tamaño del grid
   static const String _colorKey = 'selected_color'; //clave para color seleccionado
   static const String _gridKey = 'saved_pixel_grid'; //clave para grid guardado
-  
+  static const String _showNumbersKey = 'show_numbers'; 
   // Guardar el tamaño del grid
-  static Future<void> saveGridSize(int size) async {
+   Future<void> saveGridSize(int size) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_sizeKey, size);
   }
 
   // Cargar el tamaño del grid (con valor por defecto)
-  static Future<int> loadGridSize() async {
+   Future<int> loadGridSize() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(_sizeKey) ?? 16; // 16 como valor por defecto
   }
 
   // Guardar el color seleccionado
-  static Future<void> saveSelectedColor(Color color) async {
+   Future<void> saveSelectedColor(Color color) async {
     final prefs = await SharedPreferences.getInstance();
     // ignore: deprecated_member_use
     await prefs.setInt(_colorKey, color.value);
   }
 
   // Cargar el color seleccionado (con valor por defecto)
-  static Future<Color> loadSelectedColor() async {
+   Future<Color> loadSelectedColor() async {
    final prefs = await SharedPreferences.getInstance();
     // ignore: deprecated_member_use
     final colorValue = prefs.getInt(_colorKey) ?? Colors.black.value;
@@ -41,7 +41,7 @@ class SharedService {
 
   //Funciones para guardar el grid que hizo el usuario
     // Guardar el grid completo (lista de colores)
-  static Future<void> saveGrid(List<Color> gridColors) async {
+   Future<void> saveGrid(List<Color> gridColors) async {
     final prefs = await SharedPreferences.getInstance();
     // ignore: deprecated_member_use
     final colorValues = gridColors.map((color) => color.value).toList();
@@ -49,7 +49,7 @@ class SharedService {
   }
 
   // Cargar el grid completo
-  static Future<List<Color>?> loadGrid(int gridSize) async {
+   Future<List<Color>?> loadGrid(int gridSize) async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString(_gridKey);
     
@@ -60,5 +60,14 @@ class SharedService {
     
     final colorValues = List<int>.from(jsonDecode(data));
     return colorValues.map((value) => Color(value)).toList();
+  }
+  // Guardar la preferencia de mostrar números
+  Future<void> saveShowNumbers(bool showNumbers) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_showNumbersKey, showNumbers);
+  }
+  Future<bool> loadShowNumbers() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_showNumbersKey) ?? true; // true por defecto
   }
 }

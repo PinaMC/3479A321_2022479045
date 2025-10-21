@@ -7,14 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_lab_vicentefarias/pages/my_home_page.dart';
 
-
-
-
 void main() {
-  runApp(const MyApp());
-  ChangeNotifierProvider(
-    create: (context) => ConfigurationData(SharedService()),
-    child: const MyApp(),
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ConfigurationData(SharedService()),
+      child: const MyApp(),
+    ),
   );
 }
 
