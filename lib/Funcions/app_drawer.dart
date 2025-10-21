@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../pages/my_home_page.dart';
-//import '../pages/pixel_Art_screen.dart';
+import '../pages/pixel_art.dart';
 import '../pages/configuracion_screen.dart';
 import '../pages/list_creation.dart';
 import '../pages/about.dart';
@@ -66,10 +66,21 @@ Drawer buildAppDrawer(BuildContext context, {required String current}) {
                   MaterialPageRoute(builder: (context) => const AboutScreen()),
                 );
               },              
-            ), 
+            ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Configuración'),
+              title: const Text('Pixel Art'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PixelArt()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Pixel Art Configuración'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacement(

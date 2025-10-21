@@ -17,39 +17,39 @@ class _PixelArtScreenState extends State<PixelArtScreen> {
   var logger = Logger();
   @override
   void initState() {
-    // TODO: implement initState
+    //  implement initState
     super.initState();
     logger.d("In initState method of _PixelArtScreenState");
       }  
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
+    //  implement didChangeDependencies
     super.didChangeDependencies();
     logger.d("In didChanges method of _PixelArtScreenState");
   }
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
+    //  implement setState
     super.setState(fn);
     logger.d("In setState method of _PixelArtScreenState");
   }
 
   @override
   void deactivate() {
-    // TODO: implement deactivate
+    //  implement deactivate
     super.deactivate();
     logger.d("In deactivate method of _PixelArtScreenState");
   }
   @override
   void dispose() {
-    // TODO: implement dispose
+    //  implement dispose
     super.dispose();
     logger.d("In dispose method of _PixelArtScreenState");
   }
 
   @override
   void reassemble() { //este metodo sirve para hot reload
-    // TODO: implement reassemble
+    //  implement reassemble
     super.reassemble();
     logger.d("In reassemble method of _PixelArtScreenState");
   }
@@ -75,7 +75,7 @@ class _PixelArtScreenState extends State<PixelArtScreen> {
   }
   @override
   void didUpdateWidget(covariant PixelArtScreen oldWidget) {
-    // TODO: implement didUpdateWidget
+    //  implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     logger.d("In didUpdateWidget method of _PixelArtScreenState");
   } 
