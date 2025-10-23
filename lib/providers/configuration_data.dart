@@ -28,25 +28,25 @@ class ConfigurationData extends ChangeNotifier {
   bool get isInitialized => _isInitialized;
 
   Future<void> _loadpreferences() async {
-    _size = await _prefsService.loadGridSize();        // Era: SharedService.loadGridSize()
-    _selectedColor = await _prefsService.loadSelectedColor();  // Era: SharedService.loadSelectedColor()
-    _showNumbers = await _prefsService.loadShowNumbers(); // Cargar preferencia de mostrar números
+    _size = await _prefsService.loadGridSize();  
+    _selectedColor = await _prefsService.loadSelectedColor(); 
+    _showNumbers = await _prefsService.loadShowNumbers(); 
     logger.d("Preferences loaded: size=$_size, color=$_selectedColor, showNumbers=$_showNumbers");
     _isInitialized = true;
     notifyListeners();
   }
 
-  Future<void> setSize(int newSize) async {  // Agrega: Future<void> y async
+  Future<void> setSize(int newSize) async { 
     logger.d("Cambiando tamaño a $_size a $newSize");
     _size = newSize;
-    await _prefsService.saveGridSize(newSize);  // Cambia: SharedService.saveGridSize por _prefsService y agrega await
+    await _prefsService.saveGridSize(newSize); 
     notifyListeners();
   }
 
   Future<void> setColor(Color newColor) async {
     logger.d("Cambiando color de $_selectedColor a $newColor");
     _selectedColor = newColor;
-    await _prefsService.saveSelectedColor(newColor);  // Cambia: SharedService por _prefsService
+    await _prefsService.saveSelectedColor(newColor); 
     notifyListeners();
   }
   

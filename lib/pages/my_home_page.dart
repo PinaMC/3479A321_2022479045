@@ -1,6 +1,7 @@
 //import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_lab_vicentefarias/pages/configuracion_screen.dart';
+import 'package:flutter_application_lab_vicentefarias/pages/pixel_art.dart';
 //import 'package:flutter_application_lab_vicentefarias/pages/pixel_art_screen.dart';
 import 'package:logger/logger.dart';
 import 'about.dart';
@@ -8,7 +9,7 @@ import 'list_art.dart';
 //import '../providers/configuration_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'list_creation.dart';
-import 'pixel_art_screen.dart';
+//import 'pixel_art_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -168,26 +169,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
 
                 // imágenes
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Image.asset('assets/Pixel-Art-Hot-Pepper-2-1.webp',
-                          width: 120, height: 120, fit: BoxFit.cover),
-                      const SizedBox(width: 10),
-                      Image.asset('assets/Pixel-Art-Pizza-2.webp',
-                          width: 120, height: 120, fit: BoxFit.cover),
-                      const SizedBox(width: 10),
-                      Image.asset('assets/Pixel-Art-Watermelon-3.webp',
-                          width: 120, height: 120, fit: BoxFit.cover),
-                    ],
-                  ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 10, // Espacio horizontal entre imágenes
+                  runSpacing: 10, // Espacio vertical entre filas
+                  children: [
+                    Image.asset('assets/Pixel-Art-Hot-Pepper-2-1.webp',
+                        width: 120, height: 120, fit: BoxFit.cover),
+                    Image.asset('assets/Pixel-Art-Pizza-2.webp',
+                        width: 120, height: 120, fit: BoxFit.cover),
+                    Image.asset('assets/Pixel-Art-Watermelon-3.webp',
+                        width: 120, height: 120, fit: BoxFit.cover),
+                  ],
                 ),
                 const SizedBox(height: 10),
 
                 // botones crear y compartir
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Wrap(  //cambiar row por wrap 
+                  alignment: WrapAlignment.center,
+                  spacing: 10,
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
@@ -211,12 +211,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const PixelArtScreen(title: 'Editor Pixel Art'),
-                          ),
+                            builder: (context) => const PixelArt(),
+                          )                       
                         );
                       },
                       icon: const Icon(Icons.edit),
-                      label: const Text('state'),
+                      label: const Text('Pixel art'),
                     ),
                   ],
                 ),
