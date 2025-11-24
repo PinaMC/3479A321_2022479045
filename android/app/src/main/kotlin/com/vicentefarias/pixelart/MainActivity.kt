@@ -1,4 +1,4 @@
-package com.example.flutter_application_lab_vicentefarias
+package com.vicentefarias.pixelart
 
 import io.flutter.embedding.android.FlutterActivity
 
